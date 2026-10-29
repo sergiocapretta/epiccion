@@ -51,3 +51,45 @@ application server or malicious first-party page code.
 - Confirm the legacy password-based mode remains accessible.
 - In browser developer tools, check that the CDN script loads successfully and
   does not report an SRI integrity error.
+
+
+## Manual update check in the application
+
+The key-management and message pages display the installed OpenPGP.js version and
+check the npm registry for the latest stable package version. The check is
+informational only: it does not download or execute a new library version.
+It requires a network connection and the browser to permit the request to
+`registry.npmjs.org`; if the check fails, use the official release page:
+https://github.com/openpgpjs/openpgpjs/releases
+
+### Updating the pinned dependency
+
+1. Review the official OpenPGP.js release notes and assess compatibility before
+   changing the pinned version.
+2. Download the exact distribution file for the chosen version from the
+   version-pinned jsDelivr URL, for example:
+   `https://cdn.jsdelivr.net/npm/openpgp@VERSION/dist/openpgp.min.js`
+3. Calculate SHA-384 from the downloaded bytes, without altering or reformatting
+   the file. On Fedora/Linux, replace `VERSION` with the exact version:
+   ```sh
+   set -o pipefail
+   printf 'sha384-'
+   curl -fsSL 'https://cdn.jsdelivr.net/npm/openpgp@VERSION/dist/openpgp.min.js' \
+     | openssl dgst -sha384 -binary \
+     | openssl base64 -A
+   printf '\\n'
+   ```
+4. Verify the resulting digest against the exact downloaded file and update both
+   `web/keys.php` and `web/openpgp-message.php`: the URL version and
+   `integrity="sha384-…"` must match. Do not remove `crossorigin="anonymous"`.
+5. Update `INSTALLED_VERSION` in `web/openpgp-update-check.js` and this
+   document to the version actually selected and verified.
+6. Run the manual regression checklist above, including key generation,
+   private/public key import, encryption and decryption, and legacy password
+   mode. Check the browser console for failed CDN loads or SRI errors.
+7. Deploy to the test site first. Do not update production or merge the branch
+   until the tests pass.
+
+Never copy an SRI digest from a different version or from a different file
+artifact. The version number and SRI digest must refer to the exact bytes
+served by the pinned URL.
