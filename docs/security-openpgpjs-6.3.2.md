@@ -11,22 +11,22 @@ Both script tags use Subresource Integrity (SRI), with
 `crossorigin="anonymous"`. A browser should refuse to execute the script if
 the bytes delivered by the CDN do not match the declared SHA-384 digest.
 
-## Digest of the supplied artifact
+## Digest verification
 
-The file supplied for this change was named `openpgp.min.js`, measured 395,216
-bytes, and its header identifies it as OpenPGP.js v6.3.2, dated 2026-09-24.
-The SHA-384 digest calculated from those supplied bytes is:
+The digest calculated locally from the supplied `openpgp.min.js` artifact did
+not match the digest calculated on the user's Fedora computer from the file
+downloaded directly from jsDelivr. The verified digest for the jsDelivr
+response at the time of the test is:
 
 ```
-sha384-7tO8fWyOAxbPe09OQda/ET6jmiowqRD/y/FQQ0XhzcxOpMQFvEJHvK41zh6UZuAX
+sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa
 ```
 
-This digest pins the supplied file's exact contents. **It is not an independent
-proof that the supplied bytes match the upstream project's release artifact**:
-network access to retrieve and compare the CDN response was unavailable during
-this change. Before production use, compare the downloaded file with the
-official 6.3.2 package artifact through a trusted channel and update the digest
-if needed.
+This digest was calculated from the response downloaded from the pinned
+jsDelivr URL. It should be rechecked if the dependency version or CDN URL
+changes. The mismatch indicates that the supplied local artifact was not
+byte-for-byte identical to the bytes served by jsDelivr; the reason for that
+difference has not yet been established.
 
 ## License and maintenance
 
@@ -35,11 +35,10 @@ website. OpenPGP.js 6.3.2 is distributed under LGPL-3.0-or-later; retain the
 upstream license notice and include the corresponding license text if the
 bundle is redistributed in the repository.
 
-The bundle remains CDN-hosted in this change; it has **not** been vendored
-locally. This preserves the current loading arrangement while adding an
-integrity check. SRI does not eliminate availability dependence on the CDN, and
-it does not protect against a compromised application server or malicious
-first-party page code.
+The bundle remains CDN-hosted; it has **not** been vendored locally. SRI checks
+the downloaded file against the declared digest, but does not eliminate
+availability dependence on the CDN or protect against a compromised
+application server or malicious first-party page code.
 
 ## Manual regression checklist
 
