@@ -1,8 +1,8 @@
 # E-Piccion
 
-E-Piccion è un'applicazione web sperimentale che rappresenta messaggi tramite sequenze di emoji. Il progetto è in evoluzione: il ramo `main` contiene la versione precedente, mentre `feature/base1024-v0.3` ospita il lavoro sperimentale per la codifica Base1024.
+E-Piccion è un'applicazione web sperimentale che rappresenta messaggi tramite sequenze di emoji. Il progetto è in evoluzione: il ramo `main` contiene il motore v0.3 Base1024; `feature/openpgp-v0.4` contiene un prototipo separato per iniziare l'integrazione OpenPGP.
 
-> **Stato attuale:** Base1024 è in fase di verifica. Non considerare questa versione pronta per la produzione finché non sono stati completati i test con l'alfabeto reale, l'interfaccia web e l'ambiente di hosting. Non pubblicare il ramo sperimentale direttamente sul sito in uso.
+> **Stato attuale:** il motore Base1024 v0.3 è su `main`. La gestione delle chiavi e i messaggi OpenPGP in `feature/openpgp-v0.4` sono un prototipo non ancora unito a `main` e non pronto per messaggi sensibili.
 
 ## Indice
 
@@ -29,7 +29,10 @@ Il motore usa proprietà tipizzate e altre caratteristiche PHP moderne. Verifica
 
 - `engine/EmojiCrypt.php`: motore di codifica e decodifica.
 - `engine/EmojiAlphabet.php`: alfabeto di 1.024 emoji generato; non modificarlo manualmente.
-- `web/index.php`: interfaccia web.
+- `web/index.php`: interfaccia web legacy a password.
+- `web/keys.php` e `web/keys.js`: prototipo di gestione locale delle chiavi OpenPGP.
+- `web/openpgp-message.php` e `web/openpgp-message.js`: prototipo di cifratura OpenPGP e trasporto emoji.
+- `web/emoji-alphabet.php`: endpoint JSON per l'alfabeto emoji, con verifica di 1.024 simboli distinti.
 - `web/install.php`: pagina di prima inizializzazione.
 - `web/script.js` e `web/style.css`: interazione e stile dell'interfaccia.
 - `tools/generateAlphabet.php`: genera l'alfabeto a partire dalla risorsa Unicode.
@@ -79,9 +82,9 @@ Il motore opera sui byte della stringa, non sui caratteri Unicode astratti. Di c
 
 Il formato precedente produce un'emoji per ogni byte del testo. La trasformazione usa un byte derivato da SHA-256 e seleziona uno dei primi 256 indici dell'alfabeto. Il formato non contiene un'intestazione esplicita di versione.
 
-### Base1024 v0.3 — sperimentale
+### Base1024 v0.3
 
-Il ramo `feature/base1024-v0.3` introduce una codifica a blocchi da 10 bit, così da poter usare tutti i 1.024 indici dell'alfabeto. Il messaggio comprende un marcatore emoji e una lunghezza codificata in emoji, seguiti dai simboli del contenuto. La decodifica riconosce il marcatore e mantiene un percorso per i messaggi legacy.
+La versione `main` introduce una codifica a blocchi da 10 bit, così da poter usare tutti i 1.024 indici dell'alfabeto. Il messaggio comprende un marcatore emoji e una lunghezza codificata in emoji, seguiti dai simboli del contenuto. La decodifica riconosce il marcatore e mantiene un percorso per i messaggi legacy.
 
 Questa è una modifica del formato: il testo cifrato Base1024 non è uguale a quello legacy. Per interpretare un messaggio, mittente e destinatario devono usare la stessa versione del motore, la stessa password e lo stesso alfabeto. La compatibilità legacy deve essere verificata con messaggi reali della versione precedente prima della pubblicazione.
 
@@ -109,8 +112,16 @@ I test locali con un alfabeto sintetico sono utili per controllare l'algoritmo, 
 - La modalità Base1024 migliora la densità della rappresentazione, ma **non aumenta di per sé la sicurezza crittografica**.
 - Non usare la versione sperimentale per messaggi sensibili e non pubblicarla senza revisione e test.
 
-## Sviluppi previsti
+## Prototipo OpenPGP — ramo `feature/openpgp-v0.4`
 
-L'evoluzione pianificata è aggiungere una modalità OpenPGP che consenta di generare coppie di chiavi, importare chiavi esistenti, scegliere i destinatari e decifrare con la chiave privata. L'obiettivo è mantenere E-Piccion focalizzato sulla gestione delle chiavi e sulla conversione del contenuto cifrato in emoji.
+Il ramo di sviluppo contiene pagine sperimentali per generare una coppia di chiavi, importare chiavi private/pubbliche, mantenere le chiavi pubbliche dei contatti nel `localStorage`, cifrare un testo con OpenPGP e trasportare il testo cifrato tramite l'alfabeto emoji. La decodifica emoji ricostruisce il messaggio OpenPGP e lo passa alla libreria per la decifratura.
 
-La modalità OpenPGP non è ancora descritta come disponibile in questa versione: richiederà una libreria affidabile, test di interoperabilità e una gestione attenta delle chiavi private nel browser.
+### Limiti e precauzioni
+
+- Non unire né distribuire questo prototipo finché non sono stati eseguiti test PHP/JavaScript e test d'interoperabilità con chiavi reali generate da altri client.
+- Il prototipo carica OpenPGP.js da un CDN esterno. Una versione di produzione dovrebbe bloccare una versione verificata della libreria, preferibilmente servita localmente e con hash/SRI appropriati, perché uno script di terze parti eseguito nella pagina potrebbe leggere i campi della chiave privata.
+- La chiave privata non viene salvata automaticamente dal prototipo; l'utente deve esportarla e proteggerla. I contatti pubblici sono salvati nel browser locale.
+- La verifica sintattica di una chiave pubblica non prova che appartenga davvero alla persona indicata: verificare il fingerprint tramite un canale indipendente.
+- Il prototipo cifra per un singolo destinatario e non firma il messaggio. La cifratura non dimostra l'identità del mittente.
+- Il formato emoji OpenPGP è un trasporto separato dal formato Base1024 cifrato di `EmojiCrypt.php`; non usare i due formati in modo intercambiabile.
+- Non usare il prototipo per informazioni sensibili finché non è stato sottoposto a revisione e test di sicurezza.
