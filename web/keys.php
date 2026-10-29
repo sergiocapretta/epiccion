@@ -34,7 +34,7 @@ declare(strict_types=1);
         <div class="logo">🗝️</div>
         <h1>Chiavi OpenPGP</h1>
         <p class="subtitle">Gestione locale delle chiavi per E-Piccion</p>
-        <p class="engine"><a href="index.php">← Torna alla modalità password</a></p>
+        <p class="engine"><a href="openpgp-message.php">Vai ai messaggi OpenPGP →</a> · <a href="index.php">Torna alla modalità password</a></p>
     </header>
 
     <div class="notice info">
