@@ -64,7 +64,7 @@ a{color:#285f99}
 </section>
 <footer>E-Piccion v0.4 — OpenPGP sperimentale</footer>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-7tO8fWyOAxbPe09OQda/ET6jmiowqRD/y/FQQ0XhzcxOpMQFvEJHvK41zh6UZuAX" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
 <script src="openpgp-message.js" defer></script>
 </body>
 </html>
