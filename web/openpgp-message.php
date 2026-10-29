@@ -9,6 +9,7 @@ declare(strict_types=1);
 <title>E-Piccion — Messaggi OpenPGP</title>
 <link rel="stylesheet" href="style.css">
 <style>
+.site-logo{display:block;width:100%;height:100%;max-width:96px;max-height:96px;object-fit:contain;margin:0 auto}
 .panel{margin:22px 0;padding:22px;border:1px solid #d8e0e8;border-radius:10px;background:#fff}
 .panel h2{color:#1f3c63;margin-bottom:10px}
 .panel p{line-height:1.5;color:#555;margin:8px 0}
@@ -27,7 +28,7 @@ a{color:#285f99}
 <body>
 <div class="container">
 <header>
-<div class="logo">🕊️</div>
+<div class="logo"><img src="../logo.png" alt="E-Piccion" class="site-logo"></div>
 <h1>Messaggi OpenPGP</h1>
 <p class="subtitle">Cifra con la chiave pubblica, decifra con la chiave privata</p>
 <p class="engine"><a href="keys.php">← Gestione delle chiavi</a> · <a href="index.php">Modalità password v0.3</a></p>
