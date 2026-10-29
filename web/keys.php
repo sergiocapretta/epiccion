@@ -64,8 +64,8 @@ declare(strict_types=1);
         <div class="key-actions"><button id="importPrivateKey" type="button" disabled>Verifica / importa chiave privata</button></div>
     </section>
 
-    <section class="key-panel">
-        <h2>3. Importa la chiave pubblica di un contatto</h2>
+    <section class="key-panel" id="rubrica">
+        <h2>3. Rubrica: importa la chiave pubblica di un contatto</h2>
         <p>La chiave pubblica serve per cifrare un messaggio destinato a quella persona. La rubrica viene conservata solo nel localStorage di questo browser.</p>
         <label for="contactName">Nome del contatto</label>
         <input class="ep-input" id="contactName" maxlength="100" placeholder="Nome o soprannome">
