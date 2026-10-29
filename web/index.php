@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <footer>
 
-        E-Piccion v0.2a
+        E-Piccion v0.3
 
     </footer>
 
