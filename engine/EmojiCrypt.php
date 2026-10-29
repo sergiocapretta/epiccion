@@ -4,7 +4,8 @@ declare(strict_types=1);
 class EmojiCrypt {
     public const VERSION = '0.3';
     public const ALPHABET_SIZE = 1024;
-    private const V2_PREFIX = 'EP1024:';
+    private const V2_MARKER_INDEX = 1023;
+    private const LENGTH_SYMBOLS = 6;
 
     private string $password;
     private array $alphabet;
@@ -29,9 +30,13 @@ class EmojiCrypt {
 
     public function encrypt(string $text): string {
         $length = strlen($text);
-        if ($length === 0) return self::V2_PREFIX . '0:';
+        $out = [$this->alphabet[self::V2_MARKER_INDEX]];
+        for ($shift = 50; $shift >= 0; $shift -= 10) {
+            $out[] = $this->alphabet[($length >> $shift) & 1023];
+        }
+        if ($length === 0) return implode(' ', $out);
+
         $symbolCount = (int) ceil(($length * 8) / 10);
-        $out = [];
         for ($i = 0; $i < $symbolCount; $i++) {
             $value = 0;
             for ($j = 0; $j < 10; $j++) {
@@ -45,35 +50,40 @@ class EmojiCrypt {
             $value ^= $this->keyWord($i);
             $out[] = $this->alphabet[$value];
         }
-        return self::V2_PREFIX . $length . ':' . implode(' ', $out);
+        return implode(' ', $out);
     }
 
     public function decrypt(string $cipher): string {
         $cipher = trim($cipher);
-        if (preg_match('/^EP1024:(0|[1-9][0-9]*):(.*)$/us', $cipher, $matches) === 1) {
-            $length = filter_var($matches[1], FILTER_VALIDATE_INT);
-            if ($length === false || $length < 0 || $length > intdiv(PHP_INT_MAX, 8)) {
-                throw new RuntimeException('Lunghezza del messaggio Base1024 non valida');
-            }
-            return $this->decrypt1024($length, trim($matches[2]));
+        if ($cipher === '') return '';
+        $symbols = preg_split('/\s+/u', $cipher);
+        if (!isset($this->emojiToIndex[$symbols[0]])) throw new RuntimeException('Emoji sconosciuta');
+        if ($this->emojiToIndex[$symbols[0]] === self::V2_MARKER_INDEX) {
+            return $this->decrypt1024($symbols);
         }
         return $this->decryptLegacy($cipher);
     }
 
-    private function decrypt1024(int $byteLength, string $payload): string {
+    private function decrypt1024(array $symbols): string {
+        if (count($symbols) < 1 + self::LENGTH_SYMBOLS) throw new RuntimeException('Messaggio Base1024 incompleto');
+        $byteLength = 0;
+        for ($i = 1; $i <= self::LENGTH_SYMBOLS; $i++) {
+            if (!isset($this->emojiToIndex[$symbols[$i]])) throw new RuntimeException('Emoji sconosciuta');
+            $byteLength = ($byteLength << 10) | $this->emojiToIndex[$symbols[$i]];
+        }
+        if ($byteLength > intdiv(PHP_INT_MAX, 8)) throw new RuntimeException('Lunghezza del messaggio Base1024 non valida');
+        $payloadSymbols = array_slice($symbols, 1 + self::LENGTH_SYMBOLS);
         if ($byteLength === 0) {
-            if ($payload !== '') throw new RuntimeException('Messaggio Base1024 non valido');
+            if (count($payloadSymbols) !== 0) throw new RuntimeException('Messaggio Base1024 non valido');
             return '';
         }
-        if ($payload === '') throw new RuntimeException('Messaggio Base1024 incompleto');
-        $symbols = preg_split('/\s+/u', $payload);
         $expected = (int) ceil(($byteLength * 8) / 10);
-        if (count($symbols) !== $expected) throw new RuntimeException('Numero di emoji non valido per Base1024');
+        if (count($payloadSymbols) !== $expected) throw new RuntimeException('Numero di emoji non valido per Base1024');
         $bytes = [];
         $currentByte = 0;
         $bitsInByte = 0;
         $bitsRead = 0;
-        foreach ($symbols as $i => $emoji) {
+        foreach ($payloadSymbols as $i => $emoji) {
             if (!isset($this->emojiToIndex[$emoji])) throw new RuntimeException('Emoji sconosciuta');
             $value = $this->emojiToIndex[$emoji] ^ $this->keyWord($i);
             for ($j = 9; $j >= 0 && $bitsRead < $byteLength * 8; $j--) {
@@ -95,8 +105,7 @@ class EmojiCrypt {
 
     /** Decodifica compatibile con i messaggi v0.2a (primi 256 simboli). */
     private function decryptLegacy(string $cipher): string {
-        if ($cipher === '') return '';
-        $symbols = preg_split('/\s+/u', $cipher);
+        $symbols = preg_split('/\s+/u', trim($cipher));
         $bytes = [];
         foreach ($symbols as $p => $emoji) {
             if (!isset($this->emojiToIndex[$emoji])) throw new RuntimeException('Emoji sconosciuta');
