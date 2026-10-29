@@ -59,7 +59,10 @@ declare(strict_types=1);
     <section class="key-panel">
         <h2>2. Importa una chiave privata esistente</h2>
         <p>Puoi incollare una chiave privata OpenPGP ASCII-armored esportata da un altro programma. La passphrase non viene memorizzata.</p>
-        <label for="privateKeyInput">Chiave privata OpenPGP</label>
+        <label for="privateKeyFile">Carica un file di chiave privata</label>
+        <input id="privateKeyFile" type="file" accept=".asc,.pgp,.gpg,.txt,application/pgp-keys,text/plain" hidden>
+        <div class="key-actions"><button id="choosePrivateKeyFile" type="button" class="secondary">Scegli file della chiave privata…</button></div>
+        <label for="privateKeyInput">Oppure incolla la chiave privata OpenPGP</label>
         <textarea class="ep-textarea" id="privateKeyInput" spellcheck="false" autocomplete="off" placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"></textarea>
         <div class="key-actions"><button id="importPrivateKey" type="button" disabled>Verifica / importa chiave privata</button></div>
     </section>
@@ -69,7 +72,10 @@ declare(strict_types=1);
         <p>La chiave pubblica serve per cifrare un messaggio destinato a quella persona. La rubrica viene conservata solo nel localStorage di questo browser.</p>
         <label for="contactName">Nome del contatto</label>
         <input class="ep-input" id="contactName" maxlength="100" placeholder="Nome o soprannome">
-        <label for="publicKeyInput">Chiave pubblica OpenPGP</label>
+        <label for="publicKeyFile">Carica un file di chiave pubblica</label>
+        <input id="publicKeyFile" type="file" accept=".asc,.pgp,.gpg,.txt,application/pgp-keys,text/plain" hidden>
+        <div class="key-actions"><button id="choosePublicKeyFile" type="button" class="secondary">Scegli file della chiave pubblica…</button></div>
+        <label for="publicKeyInput">Oppure incolla la chiave pubblica OpenPGP</label>
         <textarea class="ep-textarea" id="publicKeyInput" spellcheck="false" autocomplete="off" placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"></textarea>
         <div class="key-actions"><button id="importPublicKey" type="button" disabled>Verifica e aggiungi contatto</button></div>
         <div id="contactsList" aria-live="polite"></div>
