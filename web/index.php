@@ -61,6 +61,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>E-Piccion</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .ep-navigation{margin:22px 0 28px;padding:20px;border:1px solid #d8e0e8;border-radius:12px;background:#f8fafc}
+        .ep-navigation h2{margin:0 0 8px;color:#1f3c63;font-size:1.25rem}
+        .ep-navigation p{line-height:1.5;color:#526174;margin:8px 0 14px}
+        .ep-navigation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+        .ep-navigation-card{display:flex;flex-direction:column;gap:8px;padding:16px;border:1px solid #d4deea;border-radius:9px;background:#fff;color:#234a73;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+        .ep-navigation-card:hover,.ep-navigation-card:focus-visible{transform:translateY(-2px);box-shadow:0 4px 14px rgba(25,55,90,.12);outline:2px solid #7da8d8;outline-offset:2px}
+        .ep-navigation-card strong{font-size:1rem}
+        .ep-navigation-card span:last-child{font-size:.9rem;line-height:1.4;color:#596879}
+        .ep-navigation-icon{font-size:1.7rem}
+        .ep-navigation-primary{background:#eaf3ff;border-color:#9dbde1}
+        .ep-navigation-note{font-size:.85rem!important;margin:14px 0 0!important}
+        @media(max-width:480px){.ep-navigation{padding:14px}.ep-navigation-grid{grid-template-columns:1fr}}
+    </style>
+
 </head>
 <body>
 
@@ -83,6 +99,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
 
     </header>
+
+
+    <nav class="ep-navigation" aria-label="Sezioni E-Piccion">
+        <h2>OpenPGP: inizia da qui</h2>
+        <p>Per inviare messaggi con chiavi personali, configura prima la tua coppia di chiavi e aggiungi i contatti alla rubrica.</p>
+        <div class="ep-navigation-grid">
+            <a class="ep-navigation-card" href="keys.php">
+                <span class="ep-navigation-icon" aria-hidden="true">🗝️</span>
+                <strong>Gestione chiavi</strong>
+                <span>Genera una coppia di chiavi o importa una chiave esistente.</span>
+            </a>
+            <a class="ep-navigation-card" href="keys.php#rubrica">
+                <span class="ep-navigation-icon" aria-hidden="true">👥</span>
+                <strong>Rubrica contatti</strong>
+                <span>Importa e gestisci le chiavi pubbliche delle persone con cui comunicare.</span>
+            </a>
+            <a class="ep-navigation-card ep-navigation-primary" href="openpgp-message.php">
+                <span class="ep-navigation-icon" aria-hidden="true">✉️</span>
+                <strong>Scrivi un messaggio cifrato</strong>
+                <span>Scegli un destinatario dalla rubrica e prepara il messaggio in emoji.</span>
+            </a>
+        </div>
+        <p class="ep-navigation-note">La modalità password qui sotto resta disponibile per i messaggi del motore v0.3. I messaggi OpenPGP usano un formato distinto.</p>
+    </nav>
 
     <?php if ($error): ?>
         <div class="error">
