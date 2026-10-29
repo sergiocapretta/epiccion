@@ -40,7 +40,7 @@ declare(strict_types=1);
     </header>
 
     <div class="notice info">
-        <strong>Prototipo in sviluppo.</strong> Le operazioni di questa pagina vengono eseguite nel browser. La chiave privata non viene inviata a E-Piccion; per questa prima prova non viene salvata automaticamente. Esporta e conserva la chiave privata in un luogo sicuro.
+        <strong>E-Piccion.</strong> Le operazioni di questa pagina vengono eseguite nel browser. La chiave privata non viene inviata a E-Piccion e non viene salvata automaticamente. Esporta e conserva la chiave privata in un luogo sicuro.
     </div>
     <div id="status" class="notice info" role="status" aria-live="polite">Caricamento della libreria OpenPGP…</div>
     <div id="openpgpUpdateStatus" class="notice info" role="status" aria-live="polite">Controllo aggiornamenti di OpenPGP.js…</div>
