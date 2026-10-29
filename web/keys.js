@@ -147,6 +147,37 @@
         };
         waitForLibrary();
 
+        $("choosePrivateKeyFile").addEventListener("click", () => $("privateKeyFile").click());
+        $("choosePublicKeyFile").addEventListener("click", () => $("publicKeyFile").click());
+
+        async function readKeyFile(file, targetId, expectedLabel) {
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) {
+                status("Il file supera il limite di 2 MB.", "error");
+                return;
+            }
+            try {
+                const content = await file.text();
+                if (!content.trim()) throw new Error("Il file selezionato è vuoto.");
+                if (!content.includes("-----BEGIN PGP ")) {
+                    throw new Error("Il file non sembra contenere una chiave OpenPGP ASCII-armored (.asc).");
+                }
+                $(targetId).value = content.trim();
+                status("File " + expectedLabel + " caricato. Premi il pulsante di verifica/importazione per completare l'operazione.");
+            } catch (error) {
+                status(error.message || "Impossibile leggere il file selezionato.", "error");
+            }
+        }
+
+        $("privateKeyFile").addEventListener("change", event => {
+            readKeyFile(event.target.files && event.target.files[0], "privateKeyInput", "della chiave privata");
+            event.target.value = "";
+        });
+        $("publicKeyFile").addEventListener("change", event => {
+            readKeyFile(event.target.files && event.target.files[0], "publicKeyInput", "della chiave pubblica");
+            event.target.value = "";
+        });
+
         $("generateKey").addEventListener("click", async () => {
             if (!openpgpReady) return;
             try { await generateKeyPair(); }
