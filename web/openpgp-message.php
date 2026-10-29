@@ -38,7 +38,7 @@ a{color:#285f99}
 </header>
 <div id="status" class="notice" role="status" aria-live="polite">Caricamento di OpenPGP.js e dell'alfabeto emoji…</div>
 <div id="openpgpUpdateStatus" class="notice info" role="status" aria-live="polite">Controllo aggiornamenti di OpenPGP.js…</div>
-<div class="notice"><strong>Prototipo sperimentale.</strong> La cifratura OpenPGP è distinta dal vecchio motore a password. La rappresentazione in emoji è solo un trasporto reversibile: la sicurezza deriva da OpenPGP, non dalle emoji. Verifica il fingerprint della chiave pubblica con il destinatario tramite un canale indipendente.</div>
+
 
 <section class="panel">
 <h2>1. Cifra un messaggio</h2>
