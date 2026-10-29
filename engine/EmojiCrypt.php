@@ -66,7 +66,7 @@ class EmojiCrypt {
             return '';
         }
         if ($payload === '') throw new RuntimeException('Messaggio Base1024 incompleto');
-        $symbols = preg_split('/\\s+/u', $payload);
+        $symbols = preg_split('/\s+/u', $payload);
         $expected = (int) ceil(($byteLength * 8) / 10);
         if (count($symbols) !== $expected) throw new RuntimeException('Numero di emoji non valido per Base1024');
         $bytes = [];
@@ -96,7 +96,7 @@ class EmojiCrypt {
     /** Decodifica compatibile con i messaggi v0.2a (primi 256 simboli). */
     private function decryptLegacy(string $cipher): string {
         if ($cipher === '') return '';
-        $symbols = preg_split('/\\s+/u', $cipher);
+        $symbols = preg_split('/\s+/u', $cipher);
         $bytes = [];
         foreach ($symbols as $p => $emoji) {
             if (!isset($this->emojiToIndex[$emoji])) throw new RuntimeException('Emoji sconosciuta');
