@@ -53,6 +53,9 @@ a{color:#285f99}
 <h2>2. Decifra un messaggio</h2>
 <p>Incolla il testo emoji ricevuto e la tua chiave privata OpenPGP. La passphrase viene usata solo in questa operazione e non viene memorizzata.</p>
 <label for="privateKeyInput">La tua chiave privata OpenPGP (ASCII-armored)</label>
+<p class="small">Puoi incollare la chiave qui sotto oppure importarla da un file locale. Il file viene letto nel browser e non viene caricato sul server.</p>
+<div class="actions"><button id="importPrivateKey" type="button">📂 Importa chiave privata da file</button></div>
+<input id="privateKeyFile" type="file" accept=".asc,.pgp,.gpg,.txt,application/pgp-keys,text/plain" hidden>
 <textarea class="ep-textarea" id="privateKeyInput" spellcheck="false" autocomplete="off" placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"></textarea>
 <label for="privatePassphrase">Passphrase della chiave privata</label>
 <input class="ep-input" id="privatePassphrase" type="password" autocomplete="current-password">
