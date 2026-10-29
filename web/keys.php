@@ -22,6 +22,8 @@ declare(strict_types=1);
         .notice{padding:12px 15px;border-radius:7px;margin:14px 0;line-height:1.45}
         .notice.info{background:#edf5ff;border-left:4px solid #3978b8}
         .notice.error{background:#ffe9e9;border-left:4px solid #c62828;color:#8a0000}
+        .notice.update-available{background:#fff4dc;border-left:4px solid #c88719;color:#694400}
+        #openpgpUpdateStatus p{margin-top:10px}
         .contact-item{padding:12px;border:1px solid #d8e0e8;border-radius:7px;margin-top:10px;overflow-wrap:anywhere}
         .contact-item button{margin-top:8px;background:#edf1f5;color:#24364b}
         .small{font-size:13px;color:#666}
@@ -38,9 +40,10 @@ declare(strict_types=1);
     </header>
 
     <div class="notice info">
-        <strong>Prototipo in sviluppo.</strong> Le operazioni di questa pagina vengono eseguite nel browser. La chiave privata non viene inviata a E-Piccion; per questa prima prova non viene salvata automaticamente. Esporta e conserva la chiave privata in un luogo sicuro.
+        <strong>E-Piccion.</strong> Le operazioni di questa pagina vengono eseguite nel browser. La chiave privata non viene inviata a E-Piccion e non viene salvata automaticamente. Esporta e conserva la chiave privata in un luogo sicuro.
     </div>
     <div id="status" class="notice info" role="status" aria-live="polite">Caricamento della libreria OpenPGP…</div>
+    <div id="openpgpUpdateStatus" class="notice info" role="status" aria-live="polite">Controllo aggiornamenti di OpenPGP.js…</div>
 
     <section class="key-panel">
         <h2>1. Genera la tua coppia di chiavi</h2>
@@ -95,7 +98,8 @@ declare(strict_types=1);
 
     <footer>E-Piccion v0.4 — OpenPGP in fase sperimentale</footer>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
+<script src="openpgp-update-check.js" defer></script>
 <script src="keys.js" defer></script>
 </body>
 </html>

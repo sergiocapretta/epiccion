@@ -114,6 +114,18 @@
      if(!openpgpReady)return;
      try{await decryptMessage();}catch(e){$("privatePassphrase").value="";status(e.message||"Errore durante la decifratura.",true);}
    });
+   $("importPrivateKey").addEventListener("click",()=>{$("privateKeyFile").click();});
+   $("privateKeyFile").addEventListener("change",async()=>{
+     const file=$("privateKeyFile").files&&$("privateKeyFile").files[0];
+     if(!file)return;
+     try{
+       const content=await file.text();
+       if(!content.includes("-----BEGIN PGP PRIVATE KEY BLOCK-----")) throw new Error("Il file selezionato non sembra contenere una chiave privata OpenPGP ASCII-armored.");
+       $("privateKeyInput").value=content.trim();
+       status("Chiave privata importata nel campo di decifratura dal file locale. Inserisci la passphrase se richiesta.");
+     }catch(error){status(error.message||"Impossibile leggere il file della chiave privata.",true);}
+     finally{$("privateKeyFile").value="";}
+   });
    $("clearSensitive").addEventListener("click",()=>{
      $("privateKeyInput").value="";$("privatePassphrase").value="";$("cipherInput").value="";$("plainOutput").value="";
      status("Campi sensibili svuotati. La rubrica pubblica non è stata modificata.");

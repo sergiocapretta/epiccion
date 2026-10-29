@@ -21,6 +21,9 @@ declare(strict_types=1);
 .actions button.primary{background:#2d7d46}
 .notice{padding:12px 15px;border-radius:7px;margin:14px 0;line-height:1.45;background:#edf5ff;border-left:4px solid #3978b8}
 .notice.error{background:#ffe9e9;border-color:#c62828;color:#8a0000}
+.notice.info{background:#edf5ff;border-left:4px solid #3978b8}
+.notice.update-available{background:#fff4dc;border-left:4px solid #c88719;color:#694400}
+#openpgpUpdateStatus p{margin-top:10px}
 .small{font-size:13px;color:#666}
 a{color:#285f99}
 </style>
@@ -34,7 +37,8 @@ a{color:#285f99}
 <p class="engine"><a href="keys.php">← Gestione delle chiavi</a> · <a href="index.php">Modalità password v0.3</a></p>
 </header>
 <div id="status" class="notice" role="status" aria-live="polite">Caricamento di OpenPGP.js e dell'alfabeto emoji…</div>
-<div class="notice"><strong>Prototipo sperimentale.</strong> La cifratura OpenPGP è distinta dal vecchio motore a password. La rappresentazione in emoji è solo un trasporto reversibile: la sicurezza deriva da OpenPGP, non dalle emoji. Verifica il fingerprint della chiave pubblica con il destinatario tramite un canale indipendente.</div>
+<div id="openpgpUpdateStatus" class="notice info" role="status" aria-live="polite">Controllo aggiornamenti di OpenPGP.js…</div>
+
 
 <section class="panel">
 <h2>1. Cifra un messaggio</h2>
@@ -53,6 +57,9 @@ a{color:#285f99}
 <h2>2. Decifra un messaggio</h2>
 <p>Incolla il testo emoji ricevuto e la tua chiave privata OpenPGP. La passphrase viene usata solo in questa operazione e non viene memorizzata.</p>
 <label for="privateKeyInput">La tua chiave privata OpenPGP (ASCII-armored)</label>
+<p class="small">Puoi incollare la chiave qui sotto oppure importarla da un file locale. Il file viene letto nel browser e non viene caricato sul server.</p>
+<div class="actions"><button id="importPrivateKey" type="button">📂 Importa chiave privata da file</button></div>
+<input id="privateKeyFile" type="file" accept=".asc,.pgp,.gpg,.txt,application/pgp-keys,text/plain" hidden>
 <textarea class="ep-textarea" id="privateKeyInput" spellcheck="false" autocomplete="off" placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"></textarea>
 <label for="privatePassphrase">Passphrase della chiave privata</label>
 <input class="ep-input" id="privatePassphrase" type="password" autocomplete="current-password">
@@ -64,7 +71,8 @@ a{color:#285f99}
 </section>
 <footer>E-Piccion v0.4 — OpenPGP sperimentale</footer>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
+<script src="openpgp-update-check.js" defer></script>
 <script src="openpgp-message.js" defer></script>
 </body>
 </html>
