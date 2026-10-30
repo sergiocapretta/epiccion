@@ -103,7 +103,7 @@ declare(strict_types=1);
         <p class="small">Conserva una copia di sicurezza della chiave privata e della passphrase separatamente. Se perdi una delle due, potresti non riuscire più a leggere i messaggi destinati a questa chiave.</p>
     </details>
 
-    <footer>E-Piccion v0.5 — OpenPGP mode</footer>
+    <footer>E-Piccion v0.5 — Modalità OpenPGP</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
 <script src="openpgp-update-check.js" defer></script>
