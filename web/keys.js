@@ -85,6 +85,15 @@
         });
         $("publicKeyOutput").value = result.publicKey;
         $("privateKeyOutput").value = result.privateKey;
+
+        const sessionPanel = $("sessionKeyPanel");
+        if (sessionPanel) {
+            sessionPanel.open = true;
+            sessionPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+            const summary = sessionPanel.querySelector("summary");
+            if (summary) summary.focus({ preventScroll: true });
+        }
+
         $("newPassphrase").value = "";
         $("newPassphraseConfirm").value = "";
         status("Coppia di chiavi generata. Esporta subito la chiave privata e conserva la passphrase: non viene salvata da E-Piccion.");
