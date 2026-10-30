@@ -10,8 +10,15 @@ declare(strict_types=1);
 <link rel="stylesheet" href="style.css">
 <style>
 .site-logo{display:block;width:100%;height:100%;max-width:96px;max-height:96px;object-fit:contain;margin:0 auto}
-.panel{margin:22px 0;padding:22px;border:1px solid #d8e0e8;border-radius:10px;background:#fff}
-.panel h2{color:#1f3c63;margin-bottom:10px}
+.panel{display:block;margin:16px 0;border:1px solid #d8e0e8;border-radius:10px;background:#fff;overflow:hidden}
+.panel summary{display:flex;align-items:center;gap:12px;padding:18px 22px;color:#1f3c63;font-size:1.12rem;font-weight:700;cursor:pointer;list-style:none}
+.panel summary::-webkit-details-marker{display:none}
+.panel summary::after{content:'＋';margin-left:auto;font-size:1.35rem;color:#285f99}
+.panel[open] summary::after{content:'−'}
+.panel[open] summary{border-bottom:1px solid #e3e9ef;background:#f8fafc}
+.panel>*:not(summary){margin-left:22px;margin-right:22px}
+.panel>p:first-of-type{margin-top:18px}
+.panel> :last-child{margin-bottom:22px}
 .panel p{line-height:1.5;color:#555;margin:8px 0}
 .panel label{margin-top:16px}
 .panel .ep-textarea{font-family:ui-monospace,monospace;font-size:13px;min-height:150px}
@@ -34,15 +41,15 @@ a{color:#285f99}
 <div class="logo"><img src="../logo.png" alt="E-Piccion" class="site-logo"></div>
 <h1>Messaggi OpenPGP</h1>
 <p class="subtitle">Cifra con la chiave pubblica, decifra con la chiave privata</p>
-<p class="engine"><a href="keys.php">← Gestione delle chiavi</a> · <a href="index.php">Modalità password v0.3</a></p>
+<p class="engine"><a href="keys.php">← Gestione delle chiavi</a> · <a href="index.php">Torna in home</a></p>
 </header>
 <div id="status" class="notice" role="status" aria-live="polite">Caricamento di OpenPGP.js e dell'alfabeto emoji…</div>
 <div id="openpgpUpdateStatus" class="notice info" role="status" aria-live="polite">Controllo aggiornamenti di OpenPGP.js…</div>
 
 
-<section class="panel">
-<h2>1. Cifra un messaggio</h2>
-<p>Seleziona un contatto pubblico importato nella pagina di gestione chiavi. Il testo viene cifrato nel browser e poi rappresentato con l'alfabeto di 1.024 emoji.</p>
+<details class="panel">
+<summary>1. Cifra un messaggio</summary>
+<p>Seleziona il destinatario dalla rubrica della pagina di gestione delle chiavi. Il messaggio verrà cifrato nel browser e convertito in una sequenza di emoji da inviare al destinatario.</p>
 <label for="recipient">Destinatario</label>
 <select id="recipient"><option value="">Caricamento contatti…</option></select>
 <label for="plainMessage">Messaggio da cifrare</label>
@@ -51,10 +58,10 @@ a{color:#285f99}
 <label for="cipherOutput">Messaggio cifrato da inviare</label>
 <textarea class="ep-textarea" id="cipherOutput" rows="8" readonly spellcheck="false"></textarea>
 <div class="actions"><button data-copy="cipherOutput" type="button">Copia messaggio emoji</button><button data-download="cipherOutput" data-filename="epiccion-messaggio-emoji.txt" type="button">Scarica .txt</button></div>
-</section>
+</details>
 
-<section class="panel">
-<h2>2. Decifra un messaggio</h2>
+<details class="panel">
+<summary>2. Decifra un messaggio</summary>
 <p>Incolla il testo emoji ricevuto e la tua chiave privata OpenPGP. La passphrase viene usata solo in questa operazione e non viene memorizzata.</p>
 <label for="privateKeyInput">La tua chiave privata OpenPGP (ASCII-armored)</label>
 <p class="small">Puoi incollare la chiave qui sotto oppure importarla da un file locale. Il file viene letto nel browser e non viene caricato sul server.</p>
@@ -68,8 +75,8 @@ a{color:#285f99}
 <div class="actions"><button id="decryptMessage" type="button" disabled>🔓 Decifra messaggio</button><button id="clearSensitive" type="button">Svuota campi sensibili</button></div>
 <label for="plainOutput">Testo decifrato</label>
 <textarea class="ep-textarea" id="plainOutput" rows="7" readonly></textarea>
-</section>
-<footer>E-Piccion v0.4 — OpenPGP sperimentale</footer>
+</details>
+<footer>E-Piccion v0.5 — Modalità OpenPGP</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
 <script src="openpgp-update-check.js" defer></script>
