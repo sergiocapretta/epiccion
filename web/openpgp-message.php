@@ -49,7 +49,7 @@ a{color:#285f99}
 
 <details class="panel">
 <summary>1. Cifra un messaggio</summary>
-<p>Seleziona il destinatario importato nella pagina di gestione chiavi. Il testo verrà cifrato nel browser</p>
+<p>Seleziona il destinatario dalla rubrica della pagina di gestione delle chiavi. Il messaggio verrà cifrato nel browser e convertito in una sequenza di emoji da inviare al destinatario.</p>
 <label for="recipient">Destinatario</label>
 <select id="recipient"><option value="">Caricamento contatti…</option></select>
 <label for="plainMessage">Messaggio da cifrare</label>
@@ -76,7 +76,7 @@ a{color:#285f99}
 <label for="plainOutput">Testo decifrato</label>
 <textarea class="ep-textarea" id="plainOutput" rows="7" readonly></textarea>
 </details>
-<footer>E-Piccion v0.5 — OpenPGP mode</footer>
+<footer>E-Piccion v0.5 — Modalità OpenPGP</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
 <script src="openpgp-update-check.js" defer></script>
