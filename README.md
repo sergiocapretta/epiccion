@@ -1,8 +1,8 @@
 # E-Piccion
 
-E-Piccion è un'applicazione web che rappresenta messaggi tramite sequenze di emoji. Il ramo `main` contiene il motore v0.3 Base1024; il ramo `security/openpgp-sri-6.3.2` contiene il prototipo OpenPGP con verifica SRI della libreria e controllo informativo degli aggiornamenti.
+E-Piccion è un'applicazione web che rappresenta messaggi tramite sequenze di emoji. Il ramo `main` contiene il motore v0.3 Base1024 e le funzionalità OpenPGP introdotte nella versione 0.5.
 
-> **Stato attuale:** le funzionalità OpenPGP sono in un ramo di sviluppo e non sono state unite a `main`. Il prototipo non deve essere considerato pronto per la gestione di messaggi sensibili.
+> **Stato attuale:** la modalità password e la modalità OpenPGP sono entrambe disponibili in `main`. Usano formati distinti e non interoperabili.
 
 ## Indice
 
@@ -113,7 +113,7 @@ I test locali con un alfabeto sintetico sono utili per controllare l'algoritmo, 
 - La modalità Base1024 migliora la densità della rappresentazione, ma **non aumenta di per sé la sicurezza crittografica**.
 - Non usare la versione sperimentale per messaggi sensibili e non pubblicarla senza revisione e test.
 
-## OpenPGP — ramo `security/openpgp-sri-6.3.2`
+## OpenPGP
 
 Il ramo di sviluppo contiene pagine per generare una coppia di chiavi, importare chiavi private e pubbliche, mantenere le chiavi pubbliche dei contatti nel `localStorage`, cifrare un testo con OpenPGP e trasportare il testo cifrato tramite l'alfabeto emoji. La chiave privata può essere incollata oppure importata da un file locale; la decodifica emoji ricostruisce il messaggio OpenPGP e lo passa alla libreria per la decifratura.
 
@@ -121,10 +121,8 @@ La libreria OpenPGP.js è caricata da jsDelivr con versione fissata e hash SRI. 
 
 ### Limiti e precauzioni
 
-- Non unire né distribuire questo prototipo per uso sensibile finché non sono stati completati revisione di sicurezza, test PHP/JavaScript e test d'interoperabilità con chiavi reali generate da altri client.
-- OpenPGP.js è caricato da un CDN esterno con versione fissata e SRI. L'SRI verifica l'integrità dei byte ricevuti, ma non elimina la dipendenza dalla disponibilità del CDN né protegge da codice malevolo già presente nella pagina.
+- OpenPGP.js è caricato da jsDelivr con versione fissata e verifica SRI già configurata. Questo controllo verifica l'integrità dei byte ricevuti, ma resta la dipendenza dalla disponibilità del CDN e non protegge da eventuale codice malevolo già presente nella pagina.
 - La chiave privata non viene salvata automaticamente dal prototipo; l'utente deve esportarla e proteggerla. I contatti pubblici sono salvati nel browser locale.
 - La verifica sintattica di una chiave pubblica non prova che appartenga davvero alla persona indicata: verificare il fingerprint tramite un canale indipendente.
 - Il prototipo cifra per un singolo destinatario e non firma il messaggio. La cifratura non dimostra l'identità del mittente.
 - Il formato emoji OpenPGP è un trasporto separato dal formato Base1024 cifrato di `EmojiCrypt.php`; non usare i due formati in modo intercambiabile.
-- Non usare il prototipo per informazioni sensibili finché non è stato sottoposto a revisione e test di sicurezza.
