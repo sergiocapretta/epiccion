@@ -10,8 +10,15 @@ declare(strict_types=1);
 <link rel="stylesheet" href="style.css">
 <style>
 .site-logo{display:block;width:100%;height:100%;max-width:96px;max-height:96px;object-fit:contain;margin:0 auto}
-.panel{margin:22px 0;padding:22px;border:1px solid #d8e0e8;border-radius:10px;background:#fff}
-.panel h2{color:#1f3c63;margin-bottom:10px}
+.panel{display:block;margin:16px 0;border:1px solid #d8e0e8;border-radius:10px;background:#fff;overflow:hidden}
+.panel summary{display:flex;align-items:center;gap:12px;padding:18px 22px;color:#1f3c63;font-size:1.12rem;font-weight:700;cursor:pointer;list-style:none}
+.panel summary::-webkit-details-marker{display:none}
+.panel summary::after{content:'＋';margin-left:auto;font-size:1.35rem;color:#285f99}
+.panel[open] summary::after{content:'−'}
+.panel[open] summary{border-bottom:1px solid #e3e9ef;background:#f8fafc}
+.panel>*:not(summary){margin-left:22px;margin-right:22px}
+.panel>p:first-of-type{margin-top:18px}
+.panel> :last-child{margin-bottom:22px}
 .panel p{line-height:1.5;color:#555;margin:8px 0}
 .panel label{margin-top:16px}
 .panel .ep-textarea{font-family:ui-monospace,monospace;font-size:13px;min-height:150px}
@@ -40,8 +47,8 @@ a{color:#285f99}
 <div id="openpgpUpdateStatus" class="notice info" role="status" aria-live="polite">Controllo aggiornamenti di OpenPGP.js…</div>
 
 
-<section class="panel">
-<h2>1. Cifra un messaggio</h2>
+<details class="panel">
+<summary>1. Cifra un messaggio</summary>
 <p>Seleziona un contatto pubblico importato nella pagina di gestione chiavi. Il testo viene cifrato nel browser e poi rappresentato con l'alfabeto di 1.024 emoji.</p>
 <label for="recipient">Destinatario</label>
 <select id="recipient"><option value="">Caricamento contatti…</option></select>
@@ -51,10 +58,10 @@ a{color:#285f99}
 <label for="cipherOutput">Messaggio cifrato da inviare</label>
 <textarea class="ep-textarea" id="cipherOutput" rows="8" readonly spellcheck="false"></textarea>
 <div class="actions"><button data-copy="cipherOutput" type="button">Copia messaggio emoji</button><button data-download="cipherOutput" data-filename="epiccion-messaggio-emoji.txt" type="button">Scarica .txt</button></div>
-</section>
+</details>
 
 <section class="panel">
-<h2>2. Decifra un messaggio</h2>
+<summary>2. Decifra un messaggio</summary>
 <p>Incolla il testo emoji ricevuto e la tua chiave privata OpenPGP. La passphrase viene usata solo in questa operazione e non viene memorizzata.</p>
 <label for="privateKeyInput">La tua chiave privata OpenPGP (ASCII-armored)</label>
 <p class="small">Puoi incollare la chiave qui sotto oppure importarla da un file locale. Il file viene letto nel browser e non viene caricato sul server.</p>
