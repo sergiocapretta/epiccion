@@ -60,7 +60,7 @@ a{color:#285f99}
 <div class="actions"><button data-copy="cipherOutput" type="button">Copia messaggio emoji</button><button data-download="cipherOutput" data-filename="epiccion-messaggio-emoji.txt" type="button">Scarica .txt</button></div>
 </details>
 
-<section class="panel">
+<details class="panel">
 <summary>2. Decifra un messaggio</summary>
 <p>Incolla il testo emoji ricevuto e la tua chiave privata OpenPGP. La passphrase viene usata solo in questa operazione e non viene memorizzata.</p>
 <label for="privateKeyInput">La tua chiave privata OpenPGP (ASCII-armored)</label>
@@ -75,7 +75,7 @@ a{color:#285f99}
 <div class="actions"><button id="decryptMessage" type="button" disabled>🔓 Decifra messaggio</button><button id="clearSensitive" type="button">Svuota campi sensibili</button></div>
 <label for="plainOutput">Testo decifrato</label>
 <textarea class="ep-textarea" id="plainOutput" rows="7" readonly></textarea>
-</section>
+</details>
 <footer>E-Piccion v0.4 — OpenPGP sperimentale</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
