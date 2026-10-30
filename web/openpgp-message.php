@@ -41,7 +41,7 @@ a{color:#285f99}
 <div class="logo"><img src="../logo.png" alt="E-Piccion" class="site-logo"></div>
 <h1>Messaggi OpenPGP</h1>
 <p class="subtitle">Cifra con la chiave pubblica, decifra con la chiave privata</p>
-<p class="engine"><a href="keys.php">← Gestione delle chiavi</a> · <a href="index.php">Modalità password v0.3</a></p>
+<p class="engine"><a href="keys.php">← Gestione delle chiavi</a> · <a href="index.php">Torna in home</a></p>
 </header>
 <div id="status" class="notice" role="status" aria-live="polite">Caricamento di OpenPGP.js e dell'alfabeto emoji…</div>
 <div id="openpgpUpdateStatus" class="notice info" role="status" aria-live="polite">Controllo aggiornamenti di OpenPGP.js…</div>
@@ -76,7 +76,7 @@ a{color:#285f99}
 <label for="plainOutput">Testo decifrato</label>
 <textarea class="ep-textarea" id="plainOutput" rows="7" readonly></textarea>
 </details>
-<footer>E-Piccion v0.4 — OpenPGP sperimentale</footer>
+<footer>E-Piccion v0.5 — OpenPGP mode</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
 <script src="openpgp-update-check.js" defer></script>
