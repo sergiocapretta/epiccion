@@ -49,7 +49,7 @@ a{color:#285f99}
 
 <details class="panel">
 <summary>1. Cifra un messaggio</summary>
-<p>Seleziona un contatto pubblico importato nella pagina di gestione chiavi. Il testo viene cifrato nel browser e poi rappresentato con l'alfabeto di 1.024 emoji.</p>
+<p>Seleziona il destinatario importato nella pagina di gestione chiavi. Il testo verrà cifrato nel browser</p>
 <label for="recipient">Destinatario</label>
 <select id="recipient"><option value="">Caricamento contatti…</option></select>
 <label for="plainMessage">Messaggio da cifrare</label>
