@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <section class="ep-password-intro" aria-labelledby="password-mode-title">
         <h2 id="password-mode-title">Modalità password semplice</h2>
-        <p>La modalità password semplice qui sotto utilizza il motore v0.3 di E-Piccion. I messaggi OpenPGP usano un formato distinto.</p>
+        <p>La modalità password qui sotto resta disponibile per i messaggi del motore v0.3. I messaggi OpenPGP usano un formato distinto.</p>
     </section>
 
     <form method="post">
@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <footer>
 
-        E-Piccion v0.5 - Password mode
+        E-Piccion v0.3
 
     </footer>
 
