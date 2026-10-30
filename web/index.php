@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <footer>
 
-        E-Piccion v0.5 - Password mode
+        E-Piccion v0.5 — Modalità password
 
     </footer>
 
