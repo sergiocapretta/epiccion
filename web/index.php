@@ -74,6 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .ep-navigation-icon{font-size:1.7rem}
         .ep-navigation-primary{background:#eaf3ff;border-color:#9dbde1}
         .ep-navigation-note{font-size:.85rem!important;margin:14px 0 0!important}
+        .ep-password-intro{margin:28px 0 16px;padding:18px 20px;border-left:4px solid #9dbde1;background:#f8fafc;border-radius:8px}
+        .ep-password-intro h2{margin:0 0 8px;color:#1f3c63;font-size:1.25rem}
+        .ep-password-intro p{margin:0;color:#526174;line-height:1.5}
         @media(max-width:480px){.ep-navigation{padding:14px}.ep-navigation-grid{grid-template-columns:1fr}}
     </style>
 
@@ -102,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <nav class="ep-navigation" aria-label="Sezioni E-Piccion">
-        <h2>OpenPGP: inizia da qui</h2>
+        <h2>Modalità OpenPGP</h2>
         <p>Per inviare messaggi con chiavi personali, configura prima la tua coppia di chiavi e aggiungi i contatti alla rubrica.</p>
         <div class="ep-navigation-grid">
             <a class="ep-navigation-card" href="keys.php">
@@ -121,7 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span>Scegli un destinatario dalla rubrica e prepara il messaggio in emoji.</span>
             </a>
         </div>
-        <p class="ep-navigation-note">La modalità password qui sotto resta disponibile per i messaggi del motore v0.3. I messaggi OpenPGP usano un formato distinto.</p>
     </nav>
 
     <?php if ($error): ?>
@@ -129,6 +131,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?= htmlspecialchars($error) ?>
         </div>
     <?php endif; ?>
+
+    <section class="ep-password-intro" aria-labelledby="password-mode-title">
+        <h2 id="password-mode-title">Modalità password semplice</h2>
+        <p>La modalità password qui sotto resta disponibile per i messaggi del motore v0.3. I messaggi OpenPGP usano un formato distinto.</p>
+    </section>
 
     <form method="post">
 
