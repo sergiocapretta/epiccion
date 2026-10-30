@@ -91,7 +91,7 @@ declare(strict_types=1);
         <div id="contactsList" aria-live="polite"></div>
     </details>
 
-    <details class="key-panel">
+    <details class="key-panel" id="sessionKeyPanel">
         <summary>4. Chiave della sessione</summary>
         <p class="small">Questi campi restano nella pagina corrente. Copia ed esporta le chiavi che vuoi conservare; ricaricando la pagina, i campi vengono svuotati.</p>
         <label for="publicKeyOutput">La tua chiave pubblica — da condividere</label>
