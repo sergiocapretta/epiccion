@@ -33,7 +33,7 @@ declare(strict_types=1);
         <div class="logo">🔐</div>
         <h1>Generatore password</h1>
         <p class="subtitle">Crea password casuali per i tuoi servizi e le tue applicazioni</p>
-        <p class="engine"><a href="index.php">← Torna a E-Piccion</a></p>
+        <p class="engine"><a href="index.php">← Torna alla home</a></p>
     </header>
 
     <section class="generator-panel">
