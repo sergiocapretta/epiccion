@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </a>
             <a class="ep-navigation-card ep-navigation-primary" href="openpgp-message.php">
                 <span class="ep-navigation-icon" aria-hidden="true">✉️</span>
-                <strong>Scrivi un messaggio cifrato</strong>
+                <strong>Cripta o decripta messaggi</strong>
                 <span>Scegli un destinatario dalla rubrica e prepara il messaggio in emoji.</span>
             </a>
             <a class="ep-navigation-card" href="password-generator.php">
