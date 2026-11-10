@@ -1,6 +1,6 @@
 # E-Piccion
 
-E-Piccion è un'applicazione web che rappresenta messaggi tramite sequenze di emoji. Il ramo `main` contiene il motore v0.3 Base1024 e le funzionalità OpenPGP introdotte nella versione 0.5.
+E-Piccion è un'applicazione web che rappresenta messaggi tramite sequenze di emoji. Il ramo `main` contiene il motore v0.3 Base1024, le funzionalità OpenPGP e il generatore di password introdotto nella versione 0.6.
 
 > **Stato attuale:** la modalità password e la modalità OpenPGP sono entrambe disponibili in `main`. Usano formati distinti e non interoperabili.
 
@@ -29,7 +29,8 @@ Il motore usa proprietà tipizzate e altre caratteristiche PHP moderne. Verifica
 
 - `engine/EmojiCrypt.php`: motore di codifica e decodifica.
 - `engine/EmojiAlphabet.php`: alfabeto di 1.024 emoji generato; non modificarlo manualmente.
-- `web/index.php`: interfaccia web legacy a password.
+- `web/index.php`: homepage e interfaccia web legacy a password (pannello espandibile).
+- `web/password-generator.php` e `web/password-generator.js`: generatore di password casuali eseguito interamente nel browser.
 - `web/keys.php` e `web/keys.js`: gestione locale delle chiavi OpenPGP.
 - `web/openpgp-message.php` e `web/openpgp-message.js`: cifratura/decifratura OpenPGP e trasporto emoji.
 - `web/openpgp-update-check.js`: controllo informativo della versione stabile di OpenPGP.js disponibile nel registro npm.
@@ -112,6 +113,10 @@ I test locali con un alfabeto sintetico sono utili per controllare l'algoritmo, 
 - Una password condivisa deve essere comunicata tramite un canale sicuro. Non inserirla in URL, log o strumenti di debug.
 - La modalità Base1024 migliora la densità della rappresentazione, ma **non aumenta di per sé la sicurezza crittografica**.
 - Non usare la versione sperimentale per messaggi sensibili e non pubblicarla senza revisione e test.
+
+## Generatore di password (v0.6)
+
+La pagina `web/password-generator.php` permette di creare password casuali con lunghezza da 8 a 128 caratteri e combinazioni configurabili di maiuscole, minuscole, numeri e simboli. È possibile escludere i caratteri ambigui. La generazione usa `crypto.getRandomValues()` del browser, con estrazione uniforme e mescolamento casuale; non invia né salva la password. È necessario un browser moderno in un contesto sicuro (HTTPS o localhost).
 
 ## OpenPGP
 
