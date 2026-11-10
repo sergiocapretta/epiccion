@@ -11,6 +11,7 @@ E-Piccion è un'applicazione web che rappresenta messaggi tramite sequenze di em
 - [Prima installazione](#prima-installazione)
 - [Preparazione dell'alfabeto emoji](#preparazione-dellalfabeto-emoji)
 - [Uso e funzionamento](#uso-e-funzionamento)
+- [Funzionalità della versione 0.6](#funzionalità-della-versione-06)
 - [Formato legacy e Base1024](#formato-legacy-e-base1024)
 - [Test prima della pubblicazione](#test-prima-della-pubblicazione)
 - [Sicurezza e limiti noti](#sicurezza-e-limiti-noti)
@@ -74,7 +75,20 @@ Se il file manca e si deve ricostruire l'ambiente:
 
 ## Uso e funzionamento
 
-L'utente sceglie una password condivisa con il destinatario, inserisce il testo e usa la funzione di codifica. Il destinatario deve usare la stessa password e una copia identica dell'alfabeto per decodificare il messaggio.
+E-Piccion mette a disposizione due modalità di messaggistica distinte:
+
+- **Password semplice (Base1024):** l'utente sceglie una password condivisa con il destinatario, inserisce il testo e usa la funzione di codifica. Il destinatario deve usare la stessa password e una copia identica dell'alfabeto per decodificare il messaggio. È una modalità legacy e sperimentale, con i limiti di sicurezza descritti più avanti.
+- **OpenPGP:** il mittente cifra il messaggio con la chiave pubblica del destinatario; il destinatario lo decifra con la propria chiave privata e la relativa passphrase. Il testo cifrato viene rappresentato tramite emoji per facilitarne la condivisione. Le due modalità usano formati distinti e non interoperabili.
+
+La homepage consente di raggiungere la gestione delle chiavi, la rubrica, la pagina per cifrare o decifrare messaggi e il generatore di password. La modalità password semplice è mantenuta in un pannello espandibile.
+
+## Funzionalità della versione 0.6
+
+- **Homepage:** pannello espandibile per la modalità password semplice e collegamenti alle diverse funzioni dell'applicazione.
+- **Generatore password:** lunghezza configurabile da 8 a 128 caratteri; scelta di maiuscole, minuscole, numeri e simboli; esclusione facoltativa dei caratteri ambigui; copia negli appunti. La generazione usa `crypto.getRandomValues()` con estrazione uniforme e mescolamento Fisher-Yates e avviene localmente nel browser.
+- **Importazione di messaggi OpenPGP:** nella pagina di decifratura è possibile incollare il testo emoji ricevuto oppure importarlo da un file `.txt`. Il contenuto viene letto localmente nel browser e inserito nel campo del messaggio ricevuto; non viene caricato sul server.
+- **Esportazione e condivisione:** la pagina OpenPGP permette di copiare il testo cifrato oppure scaricarlo come file di testo, così da poterlo inviare anche come allegato.
+
 
 Il motore opera sui byte della stringa, non sui caratteri Unicode astratti. Di conseguenza, una lettera accentata o un'emoji nel testo originale può occupare più byte ed essere rappresentata da più simboli in uscita.
 
@@ -120,7 +134,7 @@ La pagina `web/password-generator.php` permette di creare password casuali con l
 
 ## OpenPGP
 
-Il ramo di sviluppo contiene pagine per generare una coppia di chiavi, importare chiavi private e pubbliche, mantenere le chiavi pubbliche dei contatti nel `localStorage`, cifrare un testo con OpenPGP e trasportare il testo cifrato tramite l'alfabeto emoji. La chiave privata può essere incollata oppure importata da un file locale; la decodifica emoji ricostruisce il messaggio OpenPGP e lo passa alla libreria per la decifratura.
+`main` include pagine per generare una coppia di chiavi, importare chiavi private e pubbliche, mantenere le chiavi pubbliche dei contatti nel `localStorage`, cifrare un testo con OpenPGP e trasportare il testo cifrato tramite l'alfabeto emoji. La chiave privata può essere incollata oppure importata da un file locale; la decodifica emoji ricostruisce il messaggio OpenPGP e lo passa alla libreria per la decifratura. Il messaggio emoji ricevuto può essere incollato direttamente o caricato da un file `.txt`.
 
 La libreria OpenPGP.js è caricata da jsDelivr con versione fissata e hash SRI. Le pagine mostrano anche un controllo informativo della versione stabile pubblicata su npm: non installa aggiornamenti automaticamente e, se la verifica online non riesce, invita a controllare manualmente le note di rilascio. Per la procedura di aggiornamento e il ricalcolo dell'hash SRI, consultare `docs/security-openpgpjs-6.3.2.md`.
 
@@ -129,5 +143,5 @@ La libreria OpenPGP.js è caricata da jsDelivr con versione fissata e hash SRI. 
 - OpenPGP.js è caricato da jsDelivr con versione fissata e verifica SRI già configurata. Questo controllo verifica l'integrità dei byte ricevuti, ma resta la dipendenza dalla disponibilità del CDN e non protegge da eventuale codice malevolo già presente nella pagina.
 - La chiave privata non viene salvata automaticamente dal prototipo; l'utente deve esportarla e proteggerla. I contatti pubblici sono salvati nel browser locale.
 - La verifica sintattica di una chiave pubblica non prova che appartenga davvero alla persona indicata: verificare il fingerprint tramite un canale indipendente.
-- Il prototipo cifra per un singolo destinatario e non firma il messaggio. La cifratura non dimostra l'identità del mittente.
+- Il prototipo cifra per un singolo destinatario e, nella versione 0.6, non firma il messaggio. La cifratura protegge la riservatezza, ma non dimostra l'identità del mittente né garantisce al destinatario l'autenticità della provenienza.
 - Il formato emoji OpenPGP è un trasporto separato dal formato Base1024 cifrato di `EmojiCrypt.php`; non usare i due formati in modo intercambiabile.
