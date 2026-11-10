@@ -76,7 +76,7 @@ a{color:#285f99}
 <label for="plainOutput">Testo decifrato</label>
 <textarea class="ep-textarea" id="plainOutput" rows="7" readonly></textarea>
 </details>
-<footer>E-Piccion v0.5 — Modalità OpenPGP</footer>
+<footer>E-Piccion v0.6 — Modalità OpenPGP</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/openpgp@6.3.2/dist/openpgp.min.js" integrity="sha384-Q6tBjZrAPJTIxj5F9KxCni/T9dTGDsXfi4U7aBZOl+3zPHpzU6gKcyKzAhs8Xeoa" crossorigin="anonymous" defer></script>
 <script src="openpgp-update-check.js" defer></script>
