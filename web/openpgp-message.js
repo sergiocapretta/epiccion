@@ -115,6 +115,19 @@
      try{await decryptMessage();}catch(e){$("privatePassphrase").value="";status(e.message||"Errore durante la decifratura.",true);}
    });
    $("importPrivateKey").addEventListener("click",()=>{$("privateKeyFile").click();});
+   $("importMessageFile").addEventListener("click",()=>{$("messageFile").click();});
+   $("messageFile").addEventListener("change",async()=>{
+     const file=$("messageFile").files&&$("messageFile").files[0];
+     if(!file)return;
+     try{
+       if(!/\\.txt$/i.test(file.name)) throw new Error("Seleziona un file con estensione .txt.");
+       const content=await file.text();
+       if(!content.trim()) throw new Error("Il file selezionato è vuoto.");
+       $("cipherInput").value=content.trim();
+       status("Messaggio importato dal file di testo. Ora puoi procedere con la decifratura.");
+     }catch(error){status(error.message||"Impossibile leggere il file di testo.",true);}
+     finally{$("messageFile").value="";}
+   });
    $("privateKeyFile").addEventListener("change",async()=>{
      const file=$("privateKeyFile").files&&$("privateKeyFile").files[0];
      if(!file)return;
