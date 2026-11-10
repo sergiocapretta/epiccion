@@ -71,7 +71,10 @@ a{color:#285f99}
 <label for="privatePassphrase">Passphrase della chiave privata</label>
 <input class="ep-input" id="privatePassphrase" type="password" autocomplete="current-password">
 <label for="cipherInput">Messaggio emoji ricevuto</label>
-<textarea class="ep-textarea" id="cipherInput" rows="8" spellcheck="false" placeholder="Incolla qui il messaggio emoji completo…"></textarea>
+<p class="small">Puoi incollare direttamente il messaggio oppure importare un file di testo (.txt) che lo contiene.</p>
+<div class="actions"><button id="importMessageFile" type="button">📂 Importa messaggio da file .txt</button></div>
+<input id="messageFile" type="file" accept=".txt,text/plain" hidden>
+<textarea class="ep-textarea" id="cipherInput" rows="8" spellcheck="false" placeholder="Incolla qui il messaggio emoji completo oppure importa un file .txt…"></textarea>
 <div class="actions"><button id="decryptMessage" type="button" disabled>🔓 Decifra messaggio</button><button id="clearSensitive" type="button">Svuota campi sensibili</button></div>
 <label for="plainOutput">Testo decifrato</label>
 <textarea class="ep-textarea" id="plainOutput" rows="7" readonly></textarea>
