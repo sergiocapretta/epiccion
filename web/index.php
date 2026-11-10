@@ -77,6 +77,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .ep-password-intro{margin:28px 0 16px;padding:18px 20px;border-left:4px solid #9dbde1;background:#f8fafc;border-radius:8px}
         .ep-password-intro h2{margin:0 0 8px;color:#1f3c63;font-size:1.25rem}
         .ep-password-intro p{margin:0;color:#526174;line-height:1.5}
+        .key-panel{display:block;margin:16px 0;border:1px solid #d8e0e8;border-radius:10px;background:#fff;overflow:hidden}
+        .key-panel summary{display:flex;align-items:center;gap:12px;padding:18px 22px;color:#1f3c63;font-size:1.12rem;font-weight:700;cursor:pointer;list-style:none}
+        .key-panel summary::-webkit-details-marker{display:none}
+        .key-panel summary::after{content:'＋';margin-left:auto;font-size:1.35rem;color:#285f99}
+        .key-panel[open] summary::after{content:'−'}
+        .key-panel[open] summary{border-bottom:1px solid #e3e9ef;background:#f8fafc}
+        .key-panel>*:not(summary){margin-left:22px;margin-right:22px}
+        .key-panel>p:first-of-type{margin-top:18px}
+        .key-panel> :last-child{margin-bottom:22px}
         @media(max-width:480px){.ep-navigation{padding:14px}.ep-navigation-grid{grid-template-columns:1fr}}
     </style>
 
@@ -120,8 +129,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </a>
             <a class="ep-navigation-card ep-navigation-primary" href="openpgp-message.php">
                 <span class="ep-navigation-icon" aria-hidden="true">✉️</span>
-                <strong>Scrivi un messaggio cifrato</strong>
+                <strong>Cripta o decripta messaggi</strong>
                 <span>Scegli un destinatario dalla rubrica e prepara il messaggio in emoji.</span>
+            </a>
+            <a class="ep-navigation-card" href="password-generator.php">
+                <span class="ep-navigation-icon" aria-hidden="true">🔐</span>
+                <strong>Generatore password</strong>
+                <span>Crea password casuali e personalizzate direttamente nel browser.</span>
             </a>
         </div>
     </nav>
@@ -132,10 +146,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
 
-    <section class="ep-password-intro" aria-labelledby="password-mode-title">
-        <h2 id="password-mode-title">Modalità password semplice</h2>
+    <details class="key-panel" id="legacyPasswordPanel" <?= $_SERVER['REQUEST_METHOD'] === 'POST' ? 'open' : '' ?>>
+        <summary>Modalità password semplice</summary>
         <p>La modalità password qui sotto resta disponibile per i messaggi del motore v0.3. I messaggi OpenPGP usano un formato distinto.</p>
-    </section>
 
     <form method="post">
 
@@ -217,11 +230,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php endif; ?>
 
-    <footer>
+    </details>
 
-        E-Piccion v0.5 — Modalità password
-
-    </footer>
+    <footer>E-Piccion v0.6</footer>
 
 </div>
 
