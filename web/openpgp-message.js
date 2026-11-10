@@ -120,7 +120,7 @@
      const file=$("messageFile").files&&$("messageFile").files[0];
      if(!file)return;
      try{
-       if(!/\\.txt$/i.test(file.name)) throw new Error("Seleziona un file con estensione .txt.");
+       if(!/\.txt$/i.test(file.name)) throw new Error("Seleziona un file con estensione .txt.");
        const content=await file.text();
        if(!content.trim()) throw new Error("Il file selezionato è vuoto.");
        $("cipherInput").value=content.trim();
